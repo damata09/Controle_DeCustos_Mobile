@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Premium Slate & Sky Blue Color Palette -->
+    <color name="colorPrimary">#0F172A</color>
+    <color name="colorPrimaryDark">#020617</color>
+    <color name="colorAccent">#0EA5E9</color>
+    <color name="backgroundColor">#F8FAFC</color>
+    <color name="cardBackgroundColor">#FFFFFF</color>
+    <color name="textColorPrimary">#0F172A</color>
+    <color name="textColorSecondary">#64748B</color>
+
+    <color name="colorDelete">#EF4444</color>
+    <color name="colorEdit">#3B82F6</color>
+    <color name="colorSuccess">#10B981</color>
+</resources>

@@ -1,0 +1,38 @@
+package com.example.costcontrol.ui
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.costcontrol.databinding.ActivityMainBinding
+import com.example.costcontrol.ui.category.CategoryListActivity
+import com.example.costcontrol.ui.cost.CostListActivity
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    override fun Bundle?() {
+        // Kotlin Activity configuration standard
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Configurar a Toolbar
+        setSupportActionBar(binding.toolbar)
+
+        // Configurar navegação para Categorias
+        binding.cardCategories.setOnClickListener {
+            val intent = Intent(this, CategoryListActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configurar navegação para Custos
+        binding.cardCosts.setOnClickListener {
+            val intent = Intent(this, CostListActivity::class.java)
+            startActivity(intent)
+        }
+    }
+}

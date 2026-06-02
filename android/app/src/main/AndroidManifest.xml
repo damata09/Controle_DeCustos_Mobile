@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissão necessária para se comunicar com a API -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CostControl"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        
+        <!-- Tela Principal / Menu -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Telas de CRUD de Categoria -->
+        <activity
+            android:name=".ui.category.CategoryListActivity"
+            android:exported="false"
+            android:label="Listagem de Categorias" />
+        <activity
+            android:name=".ui.category.CategoryCreateActivity"
+            android:exported="false"
+            android:label="Nova Categoria" />
+        <activity
+            android:name=".ui.category.CategoryEditActivity"
+            android:exported="false"
+            android:label="Editar Categoria" />
+        <activity
+            android:name=".ui.category.CategoryDeleteActivity"
+            android:exported="false"
+            android:label="Excluir Categoria" />
+
+        <!-- Telas de CRUD de Custo -->
+        <activity
+            android:name=".ui.cost.CostListActivity"
+            android:exported="false"
+            android:label="Listagem de Custos" />
+        <activity
+            android:name=".ui.cost.CostCreateActivity"
+            android:exported="false"
+            android:label="Novo Custo" />
+        <activity
+            android:name=".ui.cost.CostEditActivity"
+            android:exported="false"
+            android:label="Editar Custo" />
+        <activity
+            android:name=".ui.cost.CostDeleteActivity"
+            android:exported="false"
+            android:label="Excluir Custo" />
+
+    </application>
+
+</manifest>

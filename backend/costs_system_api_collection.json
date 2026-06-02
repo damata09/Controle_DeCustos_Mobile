@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "8b51d8d9-2917-48f8-b39b-bf7ff12217c4",
+		"name": "Controle de Custos API",
+		"description": "Coleção de testes para a API REST de Controle de Custos Pessoais/Empresariais. Inclui todas as rotas CRUD de Categorias e Custos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Criar Categoria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Saúde\",\n    \"descricao\": \"Gastos com planos de saúde, farmácia e consultas médicas\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categorias",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categorias"
+							]
+						},
+						"description": "Cria uma nova categoria de custos no sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categorias",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categorias"
+							]
+						},
+						"description": "Retorna uma lista com todas as categorias cadastradas."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Categoria por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categorias/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1"
+							]
+						},
+						"description": "Busca detalhes de uma única categoria pelo ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Categoria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Saúde & Bem-estar\",\n    \"descricao\": \"Consultas médicas, academia, farmácia e exames\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categorias/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1"
+							]
+						},
+						"description": "Atualiza os dados de uma categoria existente."
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Categoria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categorias/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1"
+							]
+						},
+						"description": "Exclui uma categoria do sistema. Nota: Devido à cascata, todos os custos associados a esta categoria também serão removidos."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Custos",
+			"item": [
+				{
+					"name": "Criar Custo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Remédio Farmácia Panvel\",\n    \"valor\": 84.90,\n    \"categoria_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/custos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"custos"
+							]
+						},
+						"description": "Cria um novo registro de custo associado a uma categoria existente."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Custos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/custos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"custos"
+							]
+						},
+						"description": "Retorna a lista de todos os custos registrados com as categorias associadas."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Custo por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/custos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"custos",
+								"1"
+							]
+						},
+						"description": "Busca detalhes de um custo específico pelo seu ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Custo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Remédio Farmácia Panvel (Desconto Conveniado)\",\n    \"valor\": 72.15,\n    \"categoria_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/custos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"custos",
+								"1"
+							]
+						},
+						"description": "Atualiza os valores e detalhes de um custo existente."
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Custo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/custos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"custos",
+								"1"
+							]
+						},
+						"description": "Exclui um custo do sistema."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
