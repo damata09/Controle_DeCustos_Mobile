@@ -1,140 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/Widget.CostControl.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:title="Excluir Custo"
-        app:titleTextColor="@color/white"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="Excluir Custo" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp"
-            app:strokeColor="#EF4444">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_lg">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.CostControl.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:gravity="center_horizontal">
+                app:strokeColor="@color/colorDelete"
+                app:strokeWidth="2dp">
 
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@android:drawable/ic_delete"
-                    app:tint="@color/colorDelete" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Confirmar Exclusão?"
-                    android:textColor="@color/textColorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <!-- Cost Details Panel -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="#FFF1F2"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_lg">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_circle_size_lg"
+                        android:layout_height="@dimen/icon_circle_size_lg"
+                        android:background="@drawable/bg_warning_panel">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_warning" />
+                    </FrameLayout>
 
                     <TextView
-                        android:id="@+id/tvCostDescConfirm"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Descrição da Despesa"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:text="Confirmar exclusão?"
                         android:textColor="@color/textColorPrimary"
-                        android:textSize="16sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvCostValueConfirm"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Valor: R$ 0,00"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:background="@drawable/bg_detail_panel"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
+
+                        <TextView
+                            android:id="@+id/tvCostDescConfirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Descrição"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCostValueConfirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="R$ 0,00"
+                            android:textColor="@color/colorAccentDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCostCategoryConfirm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_chip"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:text="Categoria"
+                            android:textColor="@color/chipText"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCostDateConfirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Data"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="13sp" />
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvCostCategoryConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Categoria: Alimentação"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:gravity="center"
+                        android:lineSpacingExtra="3dp"
+                        android:text="O registro será removido permanentemente do sistema."
                         android:textColor="@color/textColorSecondary"
                         android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/tvCostDateConfirm"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnConfirmDelete"
+                        style="@style/Widget.CostControl.Button.Danger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Data: 01/01/2026"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="13sp" />
+                        android:layout_marginTop="@dimen/spacing_lg"
+                        android:text="Sim, excluir registro" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCancelDelete"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_xs"
+                        android:text="Cancelar"
+                        android:textColor="@color/textColorSecondary" />
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="A exclusão deste custo apagará o registro permanentemente do sistema financeiro."
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="13sp"
-                    android:gravity="center" />
-
-                <!-- Actions -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnConfirmDelete"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Sim, Excluir Registro"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:cornerRadius="8dp"
-                    app:backgroundTint="@color/colorDelete" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCancelDelete"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Cancelar e Voltar"
-                    android:textColor="@color/textColorSecondary" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

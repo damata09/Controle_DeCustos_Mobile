@@ -63,7 +63,7 @@ class CostListActivity : AppCompatActivity() {
     private fun loadCosts() {
         binding.progressBar.visibility = View.VISIBLE
         binding.rvCosts.visibility = View.GONE
-        binding.tvEmptyState.visibility = View.GONE
+        binding.emptyStateLayout.visibility = View.GONE
 
         RetrofitClient.instance.getCosts().enqueue(object : Callback<List<Cost>> {
             override fun onResponse(call: Call<List<Cost>>, response: Response<List<Cost>>) {
@@ -73,7 +73,7 @@ class CostListActivity : AppCompatActivity() {
                     adapter.updateData(list)
 
                     if (list.isEmpty()) {
-                        binding.tvEmptyState.visibility = View.VISIBLE
+                        binding.emptyStateLayout.visibility = View.VISIBLE
                     } else {
                         binding.rvCosts.visibility = View.VISIBLE
                     }
@@ -89,7 +89,7 @@ class CostListActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<Cost>>, t: Throwable) {
                 binding.progressBar.visibility = View.GONE
                 binding.tvEmptyState.text = "Falha na conexão com o servidor."
-                binding.tvEmptyState.visibility = View.VISIBLE
+                binding.emptyStateLayout.visibility = View.VISIBLE
                 Toast.makeText(
                     this@CostListActivity,
                     "Erro de conexão: ${t.localizedMessage}",

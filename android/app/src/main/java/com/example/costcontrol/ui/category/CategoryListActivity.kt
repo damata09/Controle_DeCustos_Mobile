@@ -63,7 +63,7 @@ class CategoryListActivity : AppCompatActivity() {
     private fun loadCategories() {
         binding.progressBar.visibility = View.VISIBLE
         binding.rvCategories.visibility = View.GONE
-        binding.tvEmptyState.visibility = View.GONE
+        binding.emptyStateLayout.visibility = View.GONE
 
         RetrofitClient.instance.getCategories().enqueue(object : Callback<List<Category>> {
             override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
@@ -73,7 +73,7 @@ class CategoryListActivity : AppCompatActivity() {
                     adapter.updateData(list)
                     
                     if (list.isEmpty()) {
-                        binding.tvEmptyState.visibility = View.VISIBLE
+                        binding.emptyStateLayout.visibility = View.VISIBLE
                     } else {
                         binding.rvCategories.visibility = View.VISIBLE
                     }
@@ -89,7 +89,7 @@ class CategoryListActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<Category>>, t: Throwable) {
                 binding.progressBar.visibility = View.GONE
                 binding.tvEmptyState.text = "Falha na conexão com o servidor."
-                binding.tvEmptyState.visibility = View.VISIBLE
+                binding.emptyStateLayout.visibility = View.VISIBLE
                 Toast.makeText(
                     this@CategoryListActivity,
                     "Erro de conexão: ${t.localizedMessage}",

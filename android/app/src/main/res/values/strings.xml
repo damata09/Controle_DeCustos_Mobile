@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Controle de Custos</string>
+    <string name="welcome_title">Olá, bem-vindo!</string>
+    <string name="welcome_subtitle">Gerencie categorias e despesas do dia a dia com clareza e controle total.</string>
+    <string name="status_online">API conectada</string>
+    <string name="status_detail">Sincronizado com o backend REST</string>
+    <string name="modules_title">Módulos</string>
+    <string name="categories_title">Categorias</string>
+    <string name="categories_desc">Organize despesas por tipo: alimentação, transporte, lazer…</string>
+    <string name="costs_title">Custos e despesas</string>
+    <string name="costs_desc">Registre valores e associe cada gasto a uma categoria.</string>
+    <string name="fab_add_category">Nova categoria</string>
+    <string name="fab_add_cost">Novo custo</string>
+    <string name="empty_categories">Nenhuma categoria encontrada.</string>
+    <string name="empty_costs">Nenhum custo registrado.</string>
+    <string name="list_categories_subtitle">Gerencie os tipos de despesa</string>
+    <string name="list_costs_subtitle">Acompanhe seus gastos</string>
 </resources>

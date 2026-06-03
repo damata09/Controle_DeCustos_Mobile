@@ -11,28 +11,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    override fun Bundle?() {
-        // Kotlin Activity configuration standard
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurar a Toolbar
-        setSupportActionBar(binding.toolbar)
-
-        // Configurar navegação para Categorias
         binding.cardCategories.setOnClickListener {
-            val intent = Intent(this, CategoryListActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, CategoryListActivity::class.java))
         }
 
-        // Configurar navegação para Custos
         binding.cardCosts.setOnClickListener {
-            val intent = Intent(this, CostListActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, CostListActivity::class.java))
         }
     }
 }

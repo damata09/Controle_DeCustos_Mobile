@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Permissão necessária para se comunicar com a API -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CostControl"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="31">
-        
-        <!-- Tela Principal / Menu -->
+        android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.example.costcontrol.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,39 +21,37 @@
             </intent-filter>
         </activity>
 
-        <!-- Telas de CRUD de Categoria -->
         <activity
-            android:name=".ui.category.CategoryListActivity"
+            android:name="com.example.costcontrol.ui.category.CategoryListActivity"
             android:exported="false"
-            android:label="Listagem de Categorias" />
+            android:label="Categorias" />
         <activity
-            android:name=".ui.category.CategoryCreateActivity"
+            android:name="com.example.costcontrol.ui.category.CategoryCreateActivity"
             android:exported="false"
             android:label="Nova Categoria" />
         <activity
-            android:name=".ui.category.CategoryEditActivity"
+            android:name="com.example.costcontrol.ui.category.CategoryEditActivity"
             android:exported="false"
             android:label="Editar Categoria" />
         <activity
-            android:name=".ui.category.CategoryDeleteActivity"
+            android:name="com.example.costcontrol.ui.category.CategoryDeleteActivity"
             android:exported="false"
             android:label="Excluir Categoria" />
 
-        <!-- Telas de CRUD de Custo -->
         <activity
-            android:name=".ui.cost.CostListActivity"
+            android:name="com.example.costcontrol.ui.cost.CostListActivity"
             android:exported="false"
-            android:label="Listagem de Custos" />
+            android:label="Custos" />
         <activity
-            android:name=".ui.cost.CostCreateActivity"
+            android:name="com.example.costcontrol.ui.cost.CostCreateActivity"
             android:exported="false"
             android:label="Novo Custo" />
         <activity
-            android:name=".ui.cost.CostEditActivity"
+            android:name="com.example.costcontrol.ui.cost.CostEditActivity"
             android:exported="false"
             android:label="Editar Custo" />
         <activity
-            android:name=".ui.cost.CostDeleteActivity"
+            android:name="com.example.costcontrol.ui.cost.CostDeleteActivity"
             android:exported="false"
             android:label="Excluir Custo" />
 

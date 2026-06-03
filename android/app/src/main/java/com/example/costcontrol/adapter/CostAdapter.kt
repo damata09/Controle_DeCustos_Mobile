@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.costcontrol.databinding.ItemCostBinding
 import com.example.costcontrol.model.Cost
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
@@ -15,23 +16,23 @@ class CostAdapter(
     private val onDeleteClick: (Cost) -> Unit
 ) : RecyclerView.Adapter<CostAdapter.CostViewHolder>() {
 
+    private val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+
     inner class CostViewHolder(private val binding: ItemCostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cost: Cost) {
             binding.tvCostDesc.text = cost.descricao
-            binding.tvCostValue.text = String.format(Locale.getDefault(), "R$ %.2f", cost.valor)
-            binding.tvCostCategory.text = cost.categoria?.nome ?: "Sem Categoria"
+            binding.tvCostValue.text = currencyFormat.format(cost.valor)
+            binding.tvCostCategory.text = cost.categoria?.nome ?: "Sem categoria"
 
-            // Formatação amigável da data
             val rawDate = cost.data
             binding.tvCostDate.text = try {
                 if (rawDate != null) {
-                    // Tenta tratar formatos ISO vindo da API
-                    val cleanDate = rawDate.substringBefore(".") // Remove milissegundos se houver
+                    val cleanDate = rawDate.substringBefore(".")
                     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
                     parser.timeZone = TimeZone.getTimeZone("UTC")
-                    val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                    val formatter = SimpleDateFormat("dd/MM/yyyy · HH:mm", Locale.getDefault())
                     val date = parser.parse(cleanDate)
                     if (date != null) formatter.format(date) else rawDate
                 } else {
@@ -62,7 +63,7 @@ class CostAdapter(
     override fun getItemCount(): Int = costs.size
 
     fun updateData(newCosts: List<Cost>) {
-        this.costs = newCosts
+        costs = newCosts
         notifyDataSetChanged()
     }
 }

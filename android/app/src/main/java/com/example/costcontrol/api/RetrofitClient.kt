@@ -4,16 +4,29 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    // URL base padrão para o emulador Android (10.0.2.2 mapeia para o localhost do computador host)
-    // Se utilizar um dispositivo físico, altere para o IP local do computador (ex: http://192.168.x.x:3000/)
-    private const val BASE_URL = "http://10.0.2.2:3000/"
+
+    /**
+     * false = emulador Android (10.0.2.2 aponta para o localhost do PC)
+     * true  = celular físico na mesma rede Wi-Fi (use o IP do seu computador)
+     */
+    private const val USE_PHYSICAL_DEVICE = false
+
+    // IP da sua rede local — altere se USE_PHYSICAL_DEVICE = true
+    private const val PC_IP = "192.168.3.12"
+
+    private val baseUrl: String = when {
+        USE_PHYSICAL_DEVICE -> "http://$PC_IP:3000/"
+        else -> "http://10.0.2.2:3000/"
+    }
 
     val instance: ApiService by lazy {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        retrofit.create(ApiService::class.java)
+            .create(ApiService::class.java)
     }
+
+    /** URL em uso (útil para debug no Logcat) */
+    fun currentBaseUrl(): String = baseUrl
 }

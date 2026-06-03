@@ -50,6 +50,10 @@ out/
 .env.test
 .env.production
 
+# SQLite local (desenvolvimento)
+*.db
+backend/prisma/dev.db
+
 # Stores VS Template variables
 .metalsmith/
 

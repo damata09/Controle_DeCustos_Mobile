@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Controle Financeiro — Preview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #cbd5e1;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px;
+    }
+    .phone {
+      width: 390px;
+      max-width: 100%;
+      min-height: 780px;
+      background: #f8fafc;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35);
+      display: flex;
+      flex-direction: column;
+    }
+    .toolbar {
+      background: #0f172a;
+      color: #fff;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toolbar .back { cursor: pointer; opacity: 0.9; font-size: 20px; display: none; }
+    .toolbar .back.show { display: block; }
+    .content { flex: 1; overflow-y: auto; padding: 20px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    h1 { font-size: 22px; color: #0f172a; margin-bottom: 4px; }
+    .subtitle { color: #64748b; font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card.dark {
+      background: #0f172a;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+    }
+    .card.dark h2 { color: #fff; font-size: 18px; }
+    .card.dark p { color: #94a3b8; font-size: 13px; margin-top: 6px; }
+    .card.light { cursor: pointer; }
+    .card.light h2 { color: #0f172a; font-size: 18px; }
+    .card.light p { color: #64748b; font-size: 13px; margin-top: 6px; }
+    .section-title { font-size: 17px; font-weight: 700; color: #0f172a; margin: 20px 0 12px; }
+    .item-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .item-card h3 { font-size: 17px; color: #0f172a; }
+    .item-card .desc { color: #64748b; font-size: 14px; margin-top: 4px; }
+    .item-card .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .item-card .valor { font-size: 17px; font-weight: 700; color: #0f172a; white-space: nowrap; }
+    .tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .meta { color: #64748b; font-size: 13px; margin-top: 8px; display: flex; gap: 12px; align-items: center; }
+    .actions { border-top: 1px solid #e2e8f0; margin-top: 12px; padding-top: 8px; text-align: right; }
+    .actions button {
+      background: none; border: none; font-size: 14px; font-weight: 600;
+      cursor: pointer; padding: 8px 12px;
+    }
+    .btn-edit { color: #3b82f6; }
+    .btn-del { color: #ef4444; }
+    .fab {
+      position: sticky;
+      bottom: 16px;
+      margin-left: auto;
+      width: 56px; height: 56px;
+      background: #0ea5e9;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 28px;
+      line-height: 1;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: right;
+      clear: both;
+    }
+    .warn-card {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+    .warn-card h2 { color: #b91c1c; font-size: 18px; }
+    .warn-card p { color: #7f1d1d; font-size: 14px; margin-top: 8px; line-height: 1.5; }
+    .nav-hint {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      padding: 8px;
+      background: #f1f5f9;
+      border-top: 1px solid #e2e8f0;
+    }
+    .loading { text-align: center; color: #64748b; padding: 40px; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="toolbar">
+      <span class="back" id="btnBack">←</span>
+      <span id="toolbarTitle">Controle Financeiro</span>
+    </div>
+
+    <div class="content">
+      <div id="screen-home" class="screen active">
+        <h1>Olá, Bem-vindo!</h1>
+        <p class="subtitle">Gerencie suas categorias de custos e despesas diárias de forma simples e eficiente.</p>
+        <div class="card">
+          <strong>Status do Sistema</strong>
+          <p class="subtitle" style="margin:8px 0 0">Conectado à API REST de custos (SQLite local)</p>
+        </div>
+        <p class="section-title">Módulos de Controle</p>
+        <div class="card dark" data-go="categories">
+          <h2>Categorias</h2>
+          <p>Cadastre, edite e remova categorias de despesas</p>
+        </div>
+        <div class="card light" data-go="costs">
+          <h2>Custos e Despesas</h2>
+          <p>Registre saídas financeiras associadas às categorias</p>
+        </div>
+      </div>
+
+      <div id="screen-categories" class="screen">
+        <div id="categories-list"><p class="loading">Carregando...</p></div>
+        <button class="fab" title="Adicionar">+</button>
+      </div>
+
+      <div id="screen-costs" class="screen">
+        <div id="costs-list"><p class="loading">Carregando...</p></div>
+        <button class="fab" title="Adicionar">+</button>
+      </div>
+
+      <div id="screen-delete" class="screen">
+        <h1>Excluir Categoria</h1>
+        <p class="subtitle">Confirme a remoção do registro selecionado.</p>
+        <div class="warn-card">
+          <h2>Atenção!</h2>
+          <p>Ao excluir esta categoria, todos os custos vinculados serão removidos automaticamente (exclusão em cascata).</p>
+        </div>
+        <div class="item-card" style="margin-top:20px">
+          <h3 id="del-cat-name">Alimentação</h3>
+          <p class="desc" id="del-cat-desc">Despesas com restaurantes...</p>
+        </div>
+        <div class="actions" style="border:none;margin-top:24px;text-align:center">
+          <button class="btn-del" style="font-size:16px">Confirmar Exclusão</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-hint">Preview para capturas — dados reais da API</div>
+  </div>
+
+  <script>
+    const API = window.location.origin;
+    const titles = {
+      home: 'Controle Financeiro',
+      categories: 'Categorias',
+      costs: 'Custos e Despesas',
+      delete: 'Excluir Categoria'
+    };
+    let categories = [];
+
+    function show(screen) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-' + screen).classList.add('active');
+      document.getElementById('toolbarTitle').textContent = titles[screen] || 'App';
+      document.getElementById('btnBack').classList.toggle('show', screen !== 'home');
+      window._screen = screen;
+    }
+
+    document.getElementById('btnBack').onclick = () => show('home');
+    document.querySelectorAll('[data-go]').forEach(el => {
+      el.onclick = () => {
+        const t = el.dataset.go;
+        show(t === 'categories' ? 'categories' : 'costs');
+        if (t === 'categories') loadCategories();
+        else loadCosts();
+      };
+    });
+
+    function fmtMoney(v) {
+      return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+    function fmtDate(d) {
+      return new Date(d).toLocaleDateString('pt-BR');
+    }
+
+    async function loadCategories() {
+      const el = document.getElementById('categories-list');
+      try {
+        const res = await fetch(API + '/categorias');
+        categories = await res.json();
+        el.innerHTML = categories.map(c => `
+          <div class="item-card">
+            <h3>${c.nome}</h3>
+            <p class="desc">${c.descricao || ''}</p>
+            <div class="actions">
+              <button class="btn-edit">Editar</button>
+              <button class="btn-del" data-del="${c.id}">Excluir</button>
+            </div>
+          </div>
+        `).join('');
+        el.querySelectorAll('[data-del]').forEach(btn => {
+          btn.onclick = () => {
+            const cat = categories.find(x => x.id == btn.dataset.del);
+            if (cat) {
+              document.getElementById('del-cat-name').textContent = cat.nome;
+              document.getElementById('del-cat-desc').textContent = cat.descricao || '';
+              show('delete');
+            }
+          };
+        });
+      } catch (e) {
+        el.innerHTML = '<p class="loading">Erro ao conectar na API. Verifique se o backend está rodando.</p>';
+      }
+    }
+
+    async function loadCosts() {
+      const el = document.getElementById('costs-list');
+      try {
+        const res = await fetch(API + '/custos');
+        const costs = await res.json();
+        el.innerHTML = costs.map(c => `
+          <div class="item-card">
+            <div class="row">
+              <h3>${c.descricao}</h3>
+              <span class="valor">${fmtMoney(c.valor)}</span>
+            </div>
+            <div class="meta">
+              <span class="tag">${c.categoria?.nome || '—'}</span>
+              <span>${fmtDate(c.data)}</span>
+            </div>
+            <div class="actions">
+              <button class="btn-edit">Editar</button>
+              <button class="btn-del">Excluir</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        el.innerHTML = '<p class="loading">Erro ao conectar na API.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

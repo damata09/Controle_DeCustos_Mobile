@@ -11,6 +11,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
@@ -38,9 +39,10 @@ class CostDeleteActivity : AppCompatActivity() {
         }
 
         // Preencher informações de confirmação
+        val currency = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
         binding.tvCostDescConfirm.text = cost?.descricao
-        binding.tvCostValueConfirm.text = String.format(Locale.getDefault(), "Valor: R$ %.2f", cost?.valor)
-        binding.tvCostCategoryConfirm.text = "Categoria: ${cost?.categoria?.nome ?: "Sem Categoria"}"
+        binding.tvCostValueConfirm.text = currency.format(cost?.valor ?: 0.0)
+        binding.tvCostCategoryConfirm.text = cost?.categoria?.nome ?: "Sem categoria"
 
         // Formatação amigável da data
         val rawDate = cost?.data
@@ -51,12 +53,12 @@ class CostDeleteActivity : AppCompatActivity() {
                 parser.timeZone = TimeZone.getTimeZone("UTC")
                 val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
                 val date = parser.parse(cleanDate)
-                if (date != null) "Data: " + formatter.format(date) else "Data: " + rawDate
+                if (date != null) formatter.format(date) else rawDate
             } else {
-                "Data: Não informada"
+                "Data não informada"
             }
         } catch (e: Exception) {
-            "Data: " + (rawDate?.substringBefore("T") ?: "Não informada")
+            rawDate?.substringBefore("T") ?: "Data não informada"
         }
 
         // Ações dos botões
@@ -79,7 +81,7 @@ class CostDeleteActivity : AppCompatActivity() {
         RetrofitClient.instance.deleteCost(costId).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 binding.btnConfirmDelete.isEnabled = true
-                binding.btnConfirmDelete.text = "Sim, Excluir Registro"
+                binding.btnConfirmDelete.text = "Sim, excluir registro"
                 binding.btnCancelDelete.isEnabled = true
 
                 if (response.isSuccessful) {
@@ -100,7 +102,7 @@ class CostDeleteActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 binding.btnConfirmDelete.isEnabled = true
-                binding.btnConfirmDelete.text = "Sim, Excluir Registro"
+                binding.btnConfirmDelete.text = "Sim, excluir registro"
                 binding.btnCancelDelete.isEnabled = true
                 Toast.makeText(
                     this@CostDeleteActivity,
